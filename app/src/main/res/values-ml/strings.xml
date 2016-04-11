@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">The Clinic App</string>
+    <string name="password">പാസ്സ്‌വേര്‍ഡ്‌</string>
+    <string name="username">പേര് </string>
+    <string name="upload_image">ചിത്രം അപ്‌ലോഡ്‌ ചെയ്യുക </string>
+    <string name="enter_file_name">ഫയലിനു പേര് നല്‍കുക </string>
+    <string name="cancel">റദ്ദാക്കുക </string>
+    <string name="choose_from_galley">ഗാല്ലറിയില്‍ നിന്നും തിരഞ്ഞെടുക്കുക </string>
+    <string name="take_photo">ഫോട്ടോ എടുക്കുക </string>
+    <string name="appwidget_text">ചിത്രം ചേര്‍ക്കുക </string>
+    <string name="enter_description">വിവരണം എഴുതുക </string>
+    <string name="login_instruction">ദയവായി ലോഗിന്‍ ചെയ്യുക </string>
+    <string name="network_off_alert">ദയവായി നെറ്റ്‌വര്‍ക്ക് കണക്ട് ചെയ്യുക </string>
+    <string name="no_button">ഇല്ല </string>
+    <string name="ok_button">ശരി </string>
+    <string name="password_error_msg">പാസ്സ്‌വേര്‍ഡ്‌ നല്‍കുക </string>
+    <string name="success">നിര്‍വഹിച്ചു </string>
+    <string name="unsuccessful">പരാജയപ്പെട്ടു </string>
+    <string name="username_error_msg">പേര് എഴുതുക </string>
+    <string name="wait">ദയവായി കാത്തിരിക്കുക </string>
+    <string name="yes_button">അതെ </string>
+    <string name="select_visit">പരിശോധന തിരഞ്ഞെടുക്കുക</string>
+    <string name="logout_confirm">ലോഗൌട്ട് ചെയ്യണോ?</string>
+</resources>
