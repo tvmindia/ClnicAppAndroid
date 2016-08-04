@@ -23,4 +23,8 @@
     <string name="enter_description">Enter a description</string>
     <string name="select_visit">Select visit</string>
     <string name="logout_confirm">Do you want to logout?</string>
+    <string name="photo">Photo Upload</string>
+    <string name="appointments">Appointments</string>
+    <string name="remainders">Remainders</string>
+    <string name="schedule">Schedules</string>
 </resources>

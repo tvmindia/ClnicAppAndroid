@@ -21,7 +21,22 @@ public class Home extends AppCompatActivity {
         Toast.makeText(Home.this, db.GetUserDetail("UserName"), Toast.LENGTH_LONG).show();
         Toast.makeText(Home.this, db.GetUserDetail("ClinicID"), Toast.LENGTH_LONG).show();
     }
-    public void addImage(View view){
+    public void goaddImage(View view){
+        Intent intent=new Intent(Home.this,AddImage.class);
+        startActivity(intent);
+
+    }
+    public void goAppointments(View view){
+        Intent intent=new Intent(Home.this,AddImage.class);
+        startActivity(intent);
+
+    }
+    public void goSchedules(View view){
+        Intent intent=new Intent(Home.this,AddImage.class);
+        startActivity(intent);
+
+    }
+    public void goRemainders(View view){
         Intent intent=new Intent(Home.this,AddImage.class);
         startActivity(intent);
 
