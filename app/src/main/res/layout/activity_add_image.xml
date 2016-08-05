@@ -12,14 +12,16 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:background="@color/colorbackground">
 
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/newImage"
-            android:src="@drawable/addimage"
+            android:src="@drawable/folder"
+            android:padding="50dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true" />
 
@@ -71,7 +73,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:onClick="Upload"
-        android:background="#002004"
+        android:background="@color/colorAccent"
         android:textColor="@android:color/white" />
 
 

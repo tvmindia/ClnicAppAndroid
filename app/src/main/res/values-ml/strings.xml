@@ -22,4 +22,8 @@
     <string name="yes_button">അതെ </string>
     <string name="select_visit">പരിശോധന തിരഞ്ഞെടുക്കുക</string>
     <string name="logout_confirm">ലോഗൌട്ട് ചെയ്യണോ?</string>
+    <string name="remainders">ഓർമ്മപ്പെടുത്തൽ</string>
+    <string name="photo"> മെഡിക്കൽ ചിത്രങ്ങൾ</string>
+    <string name="schedule"> ഷെഡ്യൂളുകൾ</string>
+    <string name="appointments">അപ്പോയിന്റ്മെന്റുകൾ</string>
 </resources>

@@ -37,16 +37,16 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dp"
-                                android:id="@+id/imageView2"
+                                android:id="@+id/imagePhoto"
                                 android:layout_centerHorizontal="true"
                                 android:layout_centerVertical="true"
-                                android:src="@drawable/photouploads"
+                                android:src="@drawable/caseimage"
                                 />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@id/imageView2"
+                                android:layout_below="@id/imagePhoto"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
                                 android:text="@string/photo"
                                 android:id="@+id/imgBtntext1"
@@ -75,15 +75,15 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dp"
-                                android:src="@drawable/appointments1"
-                                android:id="@+id/imgBtn2"
+                                android:src="@drawable/appointments2"
+                                android:id="@+id/imgAppointments"
                                 android:layout_centerVertical="true"
                                 android:layout_centerHorizontal="true"/>
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@id/imgBtn2"
+                                android:layout_below="@id/imgAppointments"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
                                 android:text="@string/appointments"
                                 android:id="@+id/imgBtntext2"
@@ -116,15 +116,15 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dp"
-                                android:src="@drawable/schedule1"
-                                android:id="@+id/imgBtn3"
+                                android:src="@drawable/schedules2"
+                                android:id="@+id/imgSchedules"
                                 android:layout_centerVertical="true"
                                 android:layout_centerHorizontal="true"/>
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@id/imgBtn3"
+                                android:layout_below="@id/imgSchedules"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
                                 android:id="@+id/imgBtntext3"
                                 android:gravity="center_horizontal"
@@ -153,15 +153,15 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dp"
-                                android:src="@drawable/remainder1"
-                                android:id="@+id/imgBtn4"
+                                android:src="@drawable/remainder2"
+                                android:id="@+id/imgRemainders"
                                 android:layout_centerVertical="true"
                                 android:layout_centerHorizontal="true"/>
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@id/imgBtn4"
+                                android:layout_below="@id/imgRemainders"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
                                 android:text="@string/remainders"
                                 android:id="@+id/imgBtntext4"
