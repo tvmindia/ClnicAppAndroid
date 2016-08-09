@@ -27,4 +27,6 @@
     <string name="appointments">Appointments</string>
     <string name="remainders">Remainders</string>
     <string name="schedule">Schedules</string>
+    <string name="search_patient">Search Patient</string>
+    <string name="search">Search Here</string>
 </resources>

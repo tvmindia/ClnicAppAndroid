@@ -27,17 +27,17 @@ public class Home extends AppCompatActivity {
 
     }
     public void goAppointments(View view){
-        Intent intent=new Intent(Home.this,AddImage.class);
+        Intent intent=new Intent(Home.this,Appointments.class);
         startActivity(intent);
 
     }
     public void goSchedules(View view){
-        Intent intent=new Intent(Home.this,AddImage.class);
+        Intent intent=new Intent(Home.this,Schedules.class);
         startActivity(intent);
 
     }
     public void goRemainders(View view){
-        Intent intent=new Intent(Home.this,AddImage.class);
+        Intent intent=new Intent(Home.this,Remainders.class);
         startActivity(intent);
 
     }

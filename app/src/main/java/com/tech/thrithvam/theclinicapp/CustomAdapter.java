@@ -116,9 +116,9 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                 break;
         }
         if (position % 2 == 1) {
-            convertView.setBackgroundColor(Color.parseColor("#B9FFAA"));
+            convertView.setBackgroundColor(Color.parseColor("#c4c3c3"));
         } else {
-            convertView.setBackgroundColor(Color.parseColor("#7DFFAF"));}
+            convertView.setBackgroundColor(Color.parseColor("#e1e6ef"));}
         return convertView;
     }
 

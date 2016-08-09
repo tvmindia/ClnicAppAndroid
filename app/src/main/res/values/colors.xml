@@ -8,4 +8,7 @@
     <color name="coloryellow">#d8bb22</color>
     <color name="colorgraywhite">#e1e6ef</color>
     <color name="colorlightblue">#3388c4</color>
+    <color name="colorbluelighter">#7e97d1</color>
+    <color name="colorTextbackgroundgray">#c4c3c3</color>
+
 </resources>

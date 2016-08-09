@@ -29,7 +29,8 @@
             android:name=".Login"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".Home" />
-        <activity android:name=".AddImage" />
+        <activity android:name=".AddImage"
+            android:configChanges="orientation|screenSize" />
 
         <receiver android:name=".AddImageWidget" >
             <intent-filter>
