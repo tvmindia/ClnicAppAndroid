@@ -1,6 +1,5 @@
 package com.tech.thrithvam.theclinicapp;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.CursorLoader;
@@ -14,8 +13,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -157,57 +158,21 @@ public class AddImage extends AppCompatActivity {
     }
 
     public void Upload(View view){
-        if(isOnline()){
-            if(!description.getText().toString().equals("")){
-                //////////////////////////------calling uploading functions-----------------------------------
-
-                    if(db.GetUserDetail("UserName")!=null)
-                    { //checking whether logged in or not
-
-                       /* AlertDialog.Builder builder = new AlertDialog.Builder(AddImage.this);
-                        final EditText description=new EditText(AddImage.this);
-                        description.setHint(R.string.enter_description);
-                        builder.setTitle(R.string.enter_description);
-                        builder.setView(description);
-                        builder.setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                if(description.getText().toString().equals(null))
-                                descriptionString=description.getText().toString();
-                                else
-                                descriptionString="No description";
-                                new VisitList().execute();
-                            }
-                        });
-                        builder.show();*/
-
-                       descriptionString=description.getText().toString();
-                        new VisitList().execute();
-
-                        /*try {
-                            FileInputStream fileInputStream = new FileInputStream(imageFile);
-                            FileUpload fileUpload;
-                            String fileNameString=fileName.getText().toString().trim();//.replace(" ","_");
-                            if(isFromCamera){
-                                fileNameString+=".jpg";}
-                            fileUpload = new FileUpload(AddImage.this,getResources().getString(R.string.url) +"Webservices/WebServices.asmx/AddVisitAttatchment",fileInputStream,fileNameString,db.GetUserDetail("ClinicID"),db.GetUserDetail("UserName"),db.GetUserDetail("ClinicID"),"description");
-                            fileUpload.UploadFileFn();  //calling within app
-                        } catch (FileNotFoundException e) {
-                            Toast.makeText(AddImage.this, R.string.unsuccessful, Toast.LENGTH_SHORT).show();
-                        }*/
-                    }
-                    else {
-                        Toast.makeText(AddImage.this,R.string.login_instruction,Toast.LENGTH_LONG).show();
-                        finish();
-                    }
-
-
-
+        if(isOnline())
+        {
+            if(db.GetUserDetail("UserName")!=null)
+            { //checking whether logged in or not
+                descriptionString=description.getText().toString();
+                /*--------------------calling uploading functions-----------------------------------*/
+                new VisitList().execute();
             }
             else {
-                Toast.makeText(AddImage.this,R.string.enter_description,Toast.LENGTH_LONG).show();
+                Toast.makeText(AddImage.this,R.string.login_instruction,Toast.LENGTH_LONG).show();
+                finish();
             }
         }
-        else {
+        else
+        {
             Toast.makeText(AddImage.this,R.string.network_off_alert,Toast.LENGTH_LONG).show();
         }
     }
@@ -235,14 +200,6 @@ public class AddImage extends AppCompatActivity {
             pDialog.setMessage(getResources().getString(R.string.wait));
             pDialog.setCancelable(false);
             pDialog.show();
-            //----------encrypting -----------------
-           /* byte[] cleartext;
-            try {
-                cleartext = passwordString.getBytes("UTF8");
-                passwordString= Base64.encodeToString(cipher.doFinal(cleartext), Base64.DEFAULT);
-            } catch (UnsupportedEncodingException | BadPaddingException | IllegalBlockSizeException e) {
-                e.printStackTrace();
-            }*/
         }
 
         @Override
@@ -300,7 +257,7 @@ public class AddImage extends AppCompatActivity {
                 jsonArray = jsonRootObject.optJSONArray("JSON");
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    msg=jsonObject.optString("Message", "");
+                    msg=jsonObject.optString("Message","");
                     pass=jsonObject.optBoolean("Flag", true);
                     String[] data=new String[4];
                     data[0]=jsonObject.optString("Name");
@@ -320,13 +277,14 @@ public class AddImage extends AppCompatActivity {
             super.onPostExecute(result);
             if (pDialog.isShowing())
                 pDialog.dismiss();
+
             if(!pass) {
                 new AlertDialog.Builder(AddImage.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
                         .setMessage(msg)
                         .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
+                                new VisitList().execute();
                             }
                         }).setCancelable(false).show();
             }
@@ -343,76 +301,63 @@ public class AddImage extends AppCompatActivity {
 
                 LinearLayout linearLayoutobj =new LinearLayout(AddImage.this);
                 linearLayoutobj.setOrientation(LinearLayout.VERTICAL);
+                linearLayoutobj.setPadding(5,0,5,0);
 
                 ListView visitList=new ListView(AddImage.this);
                 CustomAdapter adapter=new CustomAdapter(AddImage.this, R.layout.visit_list, visitListData,"AddImage",fileNameString,descriptionString,fStream);
                 visitList.setAdapter(adapter);
-                ListView.LayoutParams mParam = new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT,getResources().getDimensionPixelSize(R.dimen.Listview_height));
-                visitList.setLayoutParams(mParam);
+              /*  ListView.LayoutParams mParam = new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT,getResources().getDimensionPixelSize(R.dimen.Listview_height));
+                visitList.setLayoutParams(mParam);*/
                 linearLayoutobj.addView(visitList);
-
-                 /*Advance Search button*/
-                Button advancesearch= new Button(AddImage.this);
-                advancesearch.setText("Advanced Search");
-                linearLayoutobj.addView(advancesearch);
-                advancesearch.setBackgroundColor(Color.parseColor("#3661c7"));
 
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(AddImage.this);
                 builder.setTitle(R.string.select_visit);
                 builder.setView(linearLayoutobj);
-                final AlertDialog alert = builder.create();
-                alert.show();
-
-                advancesearch.setOnClickListener(new View.OnClickListener() {
+                builder.setPositiveButton(R.string.btnadvncesearch, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        alert.cancel();
+                    public void onClick(DialogInterface dialog, int which) {
 
-                        LinearLayout linearLayoutsearch =new LinearLayout(AddImage.this);
+                        LinearLayout linearLayoutsearch = new LinearLayout(AddImage.this);
                         linearLayoutsearch.setOrientation(LinearLayout.VERTICAL);
+                        linearLayoutsearch.setPadding(15, 0,15,0);
 
                         /*search textbox*/
-                        final EditText searchbox =new EditText(AddImage.this);
+                        final EditText searchbox = new EditText(AddImage.this);
                         searchbox.setHint(R.string.search);
                         linearLayoutsearch.addView(searchbox);
 
-                        /*Search button*/
-                        final Button btnsearch= new Button(AddImage.this);
-                        btnsearch.setText("Go");
-                        linearLayoutsearch.addView(btnsearch);
-                        btnsearch.setBackgroundColor(Color.parseColor("#3661c7"));
-
-                        /*Back button*/
-                        final Button btnback=new Button(AddImage.this);
-                        btnback.setText("Back");
-                        linearLayoutsearch.addView(btnback);
-                        btnback.setBackgroundColor(Color.parseColor("#3661c7"));
 
                         final AlertDialog.Builder buildersearch = new AlertDialog.Builder(AddImage.this);
                         buildersearch.setTitle(R.string.search_patient);
                         buildersearch.setView(linearLayoutsearch);
-                        final AlertDialog alert1 = buildersearch.create();
-                        alert1.show();
 
-                        btnsearch.setOnClickListener(new View.OnClickListener() {
+                        buildersearch.setPositiveButton(R.string.btnsearch, new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(View v) {
-                                alert1.cancel();
+                            public void onClick(DialogInterface dialog, int which) {
+
                                 searchstring = searchbox.getText().toString();
                                 new VisitSearch().execute();
                             }
                         });
 
-                        btnback.setOnClickListener(new View.OnClickListener() {
+                        buildersearch.setNegativeButton(R.string.btnback, new DialogInterface.OnClickListener() {
+
                             @Override
-                            public void onClick(View v) {
-                                alert1.cancel();
+                            public void onClick(DialogInterface dialog, int which) {
+
                                 new VisitList().execute();
                             }
                         });
+                        final AlertDialog alert1 = buildersearch.create();
+                        alert1.show();
+
                     }
                 });
+                final AlertDialog alert = builder.create();
+                alert.show();
+
+
             }
         }
     }
@@ -437,7 +382,6 @@ public class AddImage extends AppCompatActivity {
             Stringsearch=searchstring;
             DatabaseHandler db= new DatabaseHandler(AddImage.this);
             clinicid=db.GetUserDetail("ClinicID");
-
         }
 
         @Override
@@ -521,6 +465,7 @@ public class AddImage extends AppCompatActivity {
                         .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                new VisitList().execute();
 
                             }
                         }).setCancelable(false).show();
@@ -539,81 +484,57 @@ public class AddImage extends AppCompatActivity {
 
                 LinearLayout linearLayoutobj =new LinearLayout(AddImage.this);
                 linearLayoutobj.setOrientation(LinearLayout.VERTICAL);
+                linearLayoutobj.setPadding(5, 0, 5, 0);
 
                 ListView visitList=new ListView(AddImage.this);
                 CustomAdapter adapter=new CustomAdapter(AddImage.this, R.layout.visit_list, visitListData,"AddImage",fileNameString,descriptionString,fStream);
                 visitList.setAdapter(adapter);
-                ListView.LayoutParams mParam = new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT,getResources().getDimensionPixelSize(R.dimen.Listview_height));
-                visitList.setLayoutParams(mParam);
+              /*  ListView.LayoutParams mParam = new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT,getResources().getDimensionPixelSize(R.dimen.Listview_height));
+                visitList.setLayoutParams(mParam);*/
                 linearLayoutobj.addView(visitList);
-
-                 /*Advance Search button*/
-                Button advancesearch= new Button(AddImage.this);
-                advancesearch.setText("Advanced Search");
-                linearLayoutobj.addView(advancesearch);
-                advancesearch.setBackgroundColor(Color.parseColor("#3661c7"));
-
 
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(AddImage.this);
                 builder.setTitle(R.string.select_visit);
                 builder.setView(linearLayoutobj);
-                final AlertDialog alert = builder.create();
-                alert.show();
-
-                advancesearch.setOnClickListener(new View.OnClickListener() {
+                builder.setPositiveButton(R.string.btnadvncesearch, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        alert.cancel();
-
-                        LinearLayout linearLayoutsearch =new LinearLayout(AddImage.this);
+                    public void onClick(DialogInterface dialog, int which) {
+                        LinearLayout linearLayoutsearch = new LinearLayout(AddImage.this);
                         linearLayoutsearch.setOrientation(LinearLayout.VERTICAL);
+                        linearLayoutsearch.setPadding(15,0,15,0);
 
                         /*search textbox*/
-                        final EditText searchbox =new EditText(AddImage.this);
+                        final EditText searchbox = new EditText(AddImage.this);
                         searchbox.setHint(R.string.search);
                         linearLayoutsearch.addView(searchbox);
-                        /*Search button*/
-                        final Button btnsearch= new Button(AddImage.this);
-                        btnsearch.setText("Go");
-
-                        linearLayoutsearch.addView(btnsearch);
-                        btnsearch.setBackgroundColor(Color.parseColor("#3661c7"));
-
-                           /*Back button*/
-                        final Button btnback=new Button(AddImage.this);
-                        btnback.setText("Back");
-                        linearLayoutsearch.addView(btnback);
-                        btnback.setBackgroundColor(Color.parseColor("#3661c7"));
 
 
                         final AlertDialog.Builder buildersearch = new AlertDialog.Builder(AddImage.this);
                         buildersearch.setTitle(R.string.search_patient);
                         buildersearch.setView(linearLayoutsearch);
-                        final AlertDialog alert2 = buildersearch.create();
-                        alert2.show();
-
-                        btnsearch.setOnClickListener(new View.OnClickListener() {
+                        buildersearch.setPositiveButton(R.string.btnsearch, new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(View v) {
-                                alert2.cancel();
+                            public void onClick(DialogInterface dialog, int which) {
                                 searchstring = searchbox.getText().toString();
                                 new VisitSearch().execute();
                             }
                         });
 
-                        btnback.setOnClickListener(new View.OnClickListener() {
+                        buildersearch.setNegativeButton(R.string.btnback, new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(View v) {
-                                alert2.cancel();
+                            public void onClick(DialogInterface dialog, int which) {
                                 new VisitList().execute();
                             }
                         });
+                        final AlertDialog alert2 = buildersearch.create();
+                        alert2.show();
+
                     }
                 });
+                final AlertDialog alert = builder.create();
+                alert.show();
             }
         }
     }
-
-
 }

@@ -29,4 +29,7 @@
     <string name="schedule">Schedules</string>
     <string name="search_patient">Search Patient</string>
     <string name="search">Search Here</string>
+    <string name="btnadvncesearch">Advanced Search</string>
+    <string name="btnsearch">Search</string>
+    <string name="btnback">Back</string>
 </resources>
