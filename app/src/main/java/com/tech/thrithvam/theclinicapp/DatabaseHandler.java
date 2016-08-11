@@ -21,7 +21,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // the emulator or uninstall the application in the phone, to run the application
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_USERACCOUNTS_TABLE = "CREATE TABLE IF NOT EXISTS UserAccount (UserName TEXT,ClinicID TEXT);";//, Email TEXT, Password TEXT, MobNo TEXT, Gender TEXT);";
+        String CREATE_USERACCOUNTS_TABLE = "CREATE TABLE IF NOT EXISTS UserAccount (UserName TEXT,ClinicID TEXT,DoctorID TEXT,DoctorName TEXT);";//, Email TEXT, Password TEXT, MobNo TEXT, Gender TEXT);";
         db.execSQL(CREATE_USERACCOUNTS_TABLE);
     }
     // Upgrading database
@@ -33,10 +33,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
     //--------------------------User Accounts-----------------------------
-    public void UserLogin(String UserName,String clinicID)//, String Email, String Password, String MobNo, String Gender)
+    public void UserLogin(String UserName,String clinicID,String doctorid,String DoctorName)//, String Email, String Password, String MobNo, String Gender)
     {
         db=this.getWritableDatabase();
-        db.execSQL("INSERT INTO UserAccount (UserName,ClinicID) VALUES ('"+UserName+"','"+clinicID+"');");
+        db.execSQL("INSERT INTO UserAccount (UserName,ClinicID,DoctorID,DoctorName) VALUES ('"+UserName+"','"+clinicID+"','"+doctorid+"','"+DoctorName+"');");
         db.close();
     }
     public void UserLogout()

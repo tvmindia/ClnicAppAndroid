@@ -18,8 +18,10 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Toast.makeText(Home.this, db.GetUserDetail("UserName"), Toast.LENGTH_LONG).show();
-        Toast.makeText(Home.this, db.GetUserDetail("ClinicID"), Toast.LENGTH_LONG).show();
+        /*Toast.makeText(Home.this, "UserName"+db.GetUserDetail("UserName"), Toast.LENGTH_LONG).show();
+        Toast.makeText(Home.this, "ClinicID"+db.GetUserDetail("ClinicID"), Toast.LENGTH_LONG).show();
+        Toast.makeText(Home.this, db.GetUserDetail("DoctorID"), Toast.LENGTH_LONG).show();
+        Toast.makeText(Home.this, db.GetUserDetail("DoctorName"), Toast.LENGTH_LONG).show();*/
     }
     public void goaddImage(View view){
         Intent intent=new Intent(Home.this,AddImage.class);

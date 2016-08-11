@@ -42,11 +42,15 @@
                 android:resource="@xml/add_image_widget_info" />
         </receiver>
 
-        <activity android:name=".Appointments" >
+        <activity android:name=".Appointments"
+            android:label="Appointment Details">
+
         </activity>
-        <activity android:name=".Remainders" >
+        <activity android:name=".Remainders"
+            android:label="Remainders">
         </activity>
-        <activity android:name=".Schedules" >
+        <activity android:name=".Schedules"
+            android:label="Schedules">
         </activity>
     </application>
 

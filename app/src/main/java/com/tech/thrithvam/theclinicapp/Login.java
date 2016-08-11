@@ -8,11 +8,10 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -23,27 +22,11 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.DESKeySpec;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
 
 public class Login extends AppCompatActivity {
     EditText userName;
@@ -95,7 +78,7 @@ public class Login extends AppCompatActivity {
     }
     public class UserLogin extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
-        String strJson, postData, passwordString,usernameString,clinicID;
+        String strJson, postData, passwordString,usernameString,clinicID,doctorid,doctorname;
         JSONArray jsonArray;
         String msg;
         boolean pass=false;
@@ -171,6 +154,8 @@ public class Login extends AppCompatActivity {
                     msg=jsonObject.optString("Message");
                     pass=jsonObject.optBoolean("Flag");
                     clinicID=jsonObject.optString("ClinicID", "");
+                    doctorid=jsonObject.optString("DoctorID","");
+                    doctorname=jsonObject.optString("DoctorName","");
                 }
             } catch (JSONException ex) {
                 msg=ex.getMessage();
@@ -183,7 +168,7 @@ public class Login extends AppCompatActivity {
             super.onPostExecute(result);
             if (pDialog.isShowing())
                 pDialog.dismiss();
-            //Toast.makeText(Login.this,strJson, Toast.LENGTH_LONG).show();
+            /*Toast.makeText(Login.this,strJson, Toast.LENGTH_LONG).show(); */
 
             if(!pass) {
                 new AlertDialog.Builder(Login.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
@@ -197,7 +182,7 @@ public class Login extends AppCompatActivity {
             }
             else {
                 db.UserLogout();
-                db.UserLogin(userName.getText().toString(), clinicID);
+                db.UserLogin(userName.getText().toString(),clinicID,doctorid,doctorname);
                 Intent goHome = new Intent(Login.this, Home.class);
                 goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 goHome.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -212,10 +197,5 @@ public class Login extends AppCompatActivity {
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
-    //-------------fn to be deleted------------
-    public void backdoor(View view) {
-        userName.setText("sreejith");
-        password.setText("abc");
-        new UserLogin().execute();
-    }
+
 }

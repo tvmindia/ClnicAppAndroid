@@ -24,7 +24,7 @@
             android:src="@drawable/logocliniclight"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:onClick="backdoor"/>
+            />
 
         <EditText
             android:paddingTop="15dp"
