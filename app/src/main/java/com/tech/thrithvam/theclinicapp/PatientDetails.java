@@ -3,10 +3,11 @@ package com.tech.thrithvam.theclinicapp;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,29 +18,45 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Appointments extends AppCompatActivity {
+public class PatientDetails extends AppCompatActivity {
+
     Cryptography cryptography=new Cryptography();
+    String AppointmentDate;
+    Bundle extras;
+    SimpleDateFormat formatted = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+    Calendar cal= Calendar.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_appointments);
-        new  AppointmentDates().execute();
+        setContentView(R.layout.activity_patient_details);
+        extras = getIntent().getExtras();
+        AppointmentDate = extras.getString("AppointmentDate");
+
+        if(!AppointmentDate.equals("null")){                                    //updated
+            cal.setTimeInMillis(Long.parseLong(AppointmentDate));
+            AppointmentDate=(formatted.format(cal.getTime()));
+        }
+        new  PatientDetail().execute();
     }
 
 
     /*----------------------Thread to load Appointment list  dates --------------------------*/
-    public class AppointmentDates extends AsyncTask<Void , Void, Void> {
+    public class PatientDetail extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
         String strJson, postData,clinicid,doctorid;
         JSONArray jsonArray;
         String msg;
         boolean pass=false;
         ArrayList<String[]> visitListData =new ArrayList<>();
-        ProgressDialog pDialog=new ProgressDialog(Appointments.this);
+        ProgressDialog pDialog=new ProgressDialog(PatientDetails.this);
         FileInputStream fStream=null;
         String fileNameString = null;
         @Override
@@ -48,17 +65,17 @@ public class Appointments extends AppCompatActivity {
             pDialog.setMessage(getResources().getString(R.string.wait));
             pDialog.setCancelable(false);
             pDialog.show();
-            DatabaseHandler db= new DatabaseHandler(Appointments.this);
+            DatabaseHandler db= new DatabaseHandler(PatientDetails.this);
             clinicid=db.GetUserDetail("ClinicID");
             doctorid=db.GetUserDetail("DoctorID");
         }
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            String url =getResources().getString(R.string.url) + "Webservices/WebServices.asmx/GetAppointmentDetails";
+            String url =getResources().getString(R.string.url) + "Webservices/WebServices.asmx/GetAppointmentPatientDetails";
             HttpURLConnection c = null;
             try {
-                postData = "{\"doctorid\":\"" +doctorid + "\",\"clinicid\":\"" +clinicid + "\"}";
+                postData = "{\"doctorid\":\"" +doctorid + "\",\"clinicid\":\"" +clinicid + "\",\"appointmentdate\":\"" +AppointmentDate + "\"}";
                 URL u = new URL(url);
                 c = (HttpURLConnection) u.openConnection();
                 c.setRequestMethod("POST");
@@ -110,9 +127,14 @@ public class Appointments extends AppCompatActivity {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     msg=jsonObject.optString("Message","");
                     pass = jsonObject.optBoolean("Flag", true);
-                    String[] data=new String[2];
-                    data[1] = jsonObject.optString("P_Count");
-                    data[0]=jsonObject.optString("AvailableDate").replace("/Date(", "").replace(")/", "");
+                    String[] data=new String[5];
+                    data[0] = jsonObject.optString("Name");
+                    data[1] = jsonObject.optString("appointmentno");
+                    data[2] = jsonObject.optString("AllottingTime");
+                    data[3] = jsonObject.optString("Mobile");
+                    data[4] = jsonObject.optString("Location");
+                    /*data[5]=jsonObject.optString("AppointmentDate").replace("/Date(", "").replace(")/", "");
+                    data[6] = jsonObject.optString("DoctorID");*/
 
                     visitListData.add(data);
                 }
@@ -128,7 +150,7 @@ public class Appointments extends AppCompatActivity {
             if (pDialog.isShowing())
                 pDialog.dismiss();
             if(!pass) {
-                new AlertDialog.Builder(Appointments.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
+                new AlertDialog.Builder(PatientDetails.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
                         .setMessage(msg)
                         .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                             @Override
@@ -137,15 +159,14 @@ public class Appointments extends AppCompatActivity {
                         }).setCancelable(false).show();
             }
             else {
-                //Refering the List view in the Tile
-                ListView visitList= (ListView) findViewById(R.id.listappointments);
-                CustomAdapter adapter=new CustomAdapter(Appointments.this, R.layout.appointments_listview, visitListData,"Appointments");
+
+
+                //Refering the List view in the Patient Details Tile
+                ListView visitList= (ListView) findViewById(R.id.listpatientdetails);
+                CustomAdapter adapter=new CustomAdapter(PatientDetails.this, R.layout.patientdetails_listview, visitListData,"PatientDetails");
                 visitList.setAdapter(adapter);
 
             }
         }
     }
-
-
-
 }

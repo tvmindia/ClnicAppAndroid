@@ -29,7 +29,8 @@
             android:name=".Login"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".Home" />
-        <activity android:name=".AddImage"
+        <activity
+            android:name=".AddImage"
             android:configChanges="orientation|screenSize" />
 
         <receiver android:name=".AddImageWidget" >
@@ -42,15 +43,24 @@
                 android:resource="@xml/add_image_widget_info" />
         </receiver>
 
-        <activity android:name=".Appointments"
-            android:label="Appointment Details">
-
+        <activity
+            android:name=".Appointments"
+            android:label="Appointment Dates"
+            android:configChanges="orientation|screenSize">
         </activity>
-        <activity android:name=".Remainders"
-            android:label="Remainders">
+        <activity
+            android:name=".Remainders"
+            android:label="Remainders"
+            android:configChanges="orientation|screenSize">
         </activity>
-        <activity android:name=".Schedules"
-            android:label="Schedules">
+        <activity
+            android:name=".Schedules"
+            android:label="Schedules"
+            android:configChanges="orientation|screenSize">
+        </activity>
+        <activity android:name=".PatientDetails"
+            android:label="Patients Details"
+            android:configChanges="orientation|screenSize">
         </activity>
     </application>
 
