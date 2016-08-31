@@ -16,14 +16,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-        <!--for scrolling to particular date condition checking to compare date-->
-        <TextView
-            android:id="@+id/txtdate"
-            android:visibility="invisible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
-            />
 
       <RelativeLayout
           android:layout_width="wrap_content"
@@ -76,15 +68,6 @@
             android:textColor="@android:color/black"
             android:textSize="16dp"
             android:text=""/>
-
-     <!--   <TextView
-            android:id="@+id/view_agenda_event_endTime1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:textColor="@android:color/black"
-            android:textSize="16dp"
-            android:text=""/>-->
     </LinearLayout>
 
     </LinearLayout>

@@ -2,7 +2,6 @@ package com.tech.thrithvam.theclinicapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.view.LayoutInflater;
@@ -52,8 +51,8 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
         //visit items-----------------------------------------------
         TextView Name,Age,Date;
         TextView AppDate,Count;
-        TextView P_Name,Apmnt_No,Allotting_Time,Mobile,Apmnt_Date,Location,DoctorId;
-        TextView Title,Time1,Time2,ScheduleDate,day,month,year,dayofweek;
+        TextView P_Name,Apmnt_No,Allotting_Time,Mobile,Location;
+        TextView Time1,day,month,dayofweek;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -176,16 +175,12 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                     holder.day=(TextView) convertView.findViewById(R.id.monthday);
                     holder.dayofweek=(TextView) convertView.findViewById(R.id.txtweekday);
                     holder.Time1  = (TextView) convertView.findViewById(R.id.view_agenda_event_starttime1 );
-                    //holder.Time2  = (TextView) convertView.findViewById(R.id.view_agenda_event_endTime1 );
-                    holder.ScheduleDate  = (TextView) convertView.findViewById(R.id.txtdate );
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
 
-                // holder.Title.setText(objects.get(position)[0]);
                 holder.Time1.setText(objects.get(position)[0]);
-                // holder.Time2.setText(objects.get(position)[2]);
 
                 if(!objects.get(position)[1].equals("null")){
                     cal.setTimeInMillis(Long.parseLong(objects.get(position)[1]));
@@ -198,14 +193,6 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                     holder.dayofweek.setText(dayOfTheWeek);
                 }
 
-                if(!objects.get(position)[1].equals("null")){           //setting hidden field to find scroll position
-                    cal.setTimeInMillis(Long.parseLong(objects.get(position)[1]));
-                    holder.ScheduleDate.setText(formatted.format(cal.getTime()));
-
-                }
-                else {
-                    holder.ScheduleDate.setText("");
-                }
                 break;
             default:
                 break;
