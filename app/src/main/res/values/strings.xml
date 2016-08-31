@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Clinic Light</string>
+    <string name="app_name">Clinic Lite</string>
     <string name="url" translatable="false">http://192.168.1.107:777/</string>
     <string name="username">User Name</string>
     <string name="password">Password</string>
@@ -27,9 +27,15 @@
     <string name="appointments">Appointments</string>
     <string name="remainders">Remainders</string>
     <string name="schedule">Schedules</string>
+
     <string name="search_patient">Search Patient</string>
     <string name="search">Search Here</string>
     <string name="btnadvncesearch">Advanced Search</string>
     <string name="btnsearch">Search</string>
     <string name="btnback">Back</string>
+    <string name="NoSchedules">No Schedules</string>
+    <!--<string name="TodayNoSchedules">Today No Schedules</string>-->
+
+  <!--  <string name=""></string>-->
+
 </resources>

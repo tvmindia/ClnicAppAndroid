@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lineargridviewlayout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_margin="2dp"
+        android:background="@color/colorskyblue">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <!--for scrolling to particular date condition checking to compare date-->
+        <TextView
+            android:id="@+id/txtdate"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            />
+
+      <RelativeLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txtmonth"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="AUG"
+            android:textColor="@color/colorPrimaryDark"
+            android:paddingLeft="5dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
+        <TextView
+            android:id="@+id/txtweekday"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="MON"
+            android:paddingLeft="5dp"
+            android:layout_below="@+id/txtmonth"
+            android:textColor="@color/colorPrimaryDark"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
+        <TextView
+                android:id="@+id/monthday"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/txtweekday"
+                android:text="88"
+                android:textSize="40dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_gravity="center_horizontal"/>
+
+      </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/view_agenda_event_time_schedule1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+        <TextView
+            android:id="@+id/view_agenda_event_starttime1"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_marginLeft="5dp"
+            android:textColor="@android:color/black"
+            android:textSize="16dp"
+            android:text=""/>
+
+     <!--   <TextView
+            android:id="@+id/view_agenda_event_endTime1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textColor="@android:color/black"
+            android:textSize="16dp"
+            android:text=""/>-->
+    </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

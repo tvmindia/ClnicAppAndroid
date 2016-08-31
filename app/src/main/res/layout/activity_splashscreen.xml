@@ -10,5 +10,5 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:scaleType="fitCenter"
-        android:src="@drawable/splashlogolight"/>
+        android:src="@drawable/splashlogocliniclite"/>
 </RelativeLayout>

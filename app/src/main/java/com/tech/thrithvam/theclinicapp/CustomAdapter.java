@@ -53,6 +53,7 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
         TextView Name,Age,Date;
         TextView AppDate,Count;
         TextView P_Name,Apmnt_No,Allotting_Time,Mobile,Apmnt_Date,Location,DoctorId;
+        TextView Title,Time1,Time2,ScheduleDate,day,month,year,dayofweek;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -166,13 +167,53 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                 });
 
                 break;
+            /*===============================Schedule Calendar List======================================*/
+            case "ScheduleCalendar":
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.scheulegridview, null);
+                    holder.month  = (TextView) convertView.findViewById(R.id.txtmonth);
+                    holder.day=(TextView) convertView.findViewById(R.id.monthday);
+                    holder.dayofweek=(TextView) convertView.findViewById(R.id.txtweekday);
+                    holder.Time1  = (TextView) convertView.findViewById(R.id.view_agenda_event_starttime1 );
+                    //holder.Time2  = (TextView) convertView.findViewById(R.id.view_agenda_event_endTime1 );
+                    holder.ScheduleDate  = (TextView) convertView.findViewById(R.id.txtdate );
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+
+                // holder.Title.setText(objects.get(position)[0]);
+                holder.Time1.setText(objects.get(position)[0]);
+                // holder.Time2.setText(objects.get(position)[2]);
+
+                if(!objects.get(position)[1].equals("null")){
+                    cal.setTimeInMillis(Long.parseLong(objects.get(position)[1]));
+                    //int qw =cal.get(Calendar.DAY_OF_WEEK);
+                    String strmonth=(String) android.text.format.DateFormat.format("MMM",cal.getTime()); //Jun
+                    holder.month.setText(strmonth);
+                    String strday=(String) android.text.format.DateFormat.format("dd",cal.getTime()); //20
+                    holder.day.setText(strday);
+                    String dayOfTheWeek =(String) android.text.format.DateFormat.format("EEE",cal.getTime()); //Mon
+                    holder.dayofweek.setText(dayOfTheWeek);
+                }
+
+                if(!objects.get(position)[1].equals("null")){           //setting hidden field to find scroll position
+                    cal.setTimeInMillis(Long.parseLong(objects.get(position)[1]));
+                    holder.ScheduleDate.setText(formatted.format(cal.getTime()));
+
+                }
+                else {
+                    holder.ScheduleDate.setText("");
+                }
+                break;
             default:
                 break;
         }
-        if (position % 2 == 1) {
+       /* if (position % 2 == 1) {
             convertView.setBackgroundColor(Color.parseColor("#c4c3c3"));
         } else {
-            convertView.setBackgroundColor(Color.parseColor("#e1e6ef"));}
+            convertView.setBackgroundColor(Color.parseColor("#e1e6ef"));}*/
         return convertView;
     }
 

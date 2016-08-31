@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">The Clinic App</string>
+    <string name="app_name">Clinic Lite</string>
     <string name="password">പാസ്സ്‌വേര്‍ഡ്‌</string>
     <string name="username">പേര് </string>
     <string name="upload_image">ചിത്രം അപ്‌ലോഡ്‌ ചെയ്യുക </string>
