@@ -34,8 +34,9 @@
     <string name="btnsearch">Search</string>
     <string name="btnback">Back</string>
     <string name="NoSchedules">No Schedules</string>
-    <!--<string name="TodayNoSchedules">Today No Schedules</string>-->
+    <string name="NoSchedulesToday"> No Schedules Today</string>
 
-  <!--  <string name=""></string>-->
+    <string name="minDate">01/01/2016</string>
+    <string name="maxDate">12/31/2030</string>
 
 </resources>

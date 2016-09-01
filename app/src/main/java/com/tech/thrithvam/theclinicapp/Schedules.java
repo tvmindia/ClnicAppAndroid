@@ -2,11 +2,13 @@ package com.tech.thrithvam.theclinicapp;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CalendarView;
 import android.widget.GridView;
 import android.widget.ListView;
@@ -25,16 +27,14 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Schedules extends AppCompatActivity {
     CalendarView calendarView;
-    TextView dateDisplay;
     Calendar SelectedDate=Calendar.getInstance();
-
-    ListView listview;
     GridView gridview;
     ArrayList<String> ScheduledDates =new ArrayList<>();
 
@@ -43,28 +43,20 @@ public class Schedules extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedules);
         calendarView = (CalendarView) findViewById(R.id.calendarView);
-        /*listview=(ListView)findViewById(R.id.listschedules);*/
         gridview=(GridView)findViewById(R.id.gridschedulelist);
-       /* dateDisplay = (TextView) findViewById(R.id.date_display);
-        dateDisplay.setText("Date: ");*/
-
         new Scheduleddates().execute();
-
     }
-
-
-
     /*----------------------Thread to load Scheduled  dates --------------------------*/
     public class Scheduleddates extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
         String strJson, postData,clinicid,doctorid;
+        String str;
         JSONArray jsonArray;
         String msg;
         boolean pass=false;
         Cryptography cryptography=new Cryptography();
         ArrayList<String[]> ScheduleData =new ArrayList<>();
         ProgressDialog pDialog=new ProgressDialog(Schedules.this);
-        int year,month,day,Dayofweek;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -132,7 +124,7 @@ public class Schedules extends AppCompatActivity {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     msg=jsonObject.optString("Message","");
-                    pass = jsonObject.optBoolean("Flag", true);
+                    pass = jsonObject.optBoolean("Flag",true);
                     String[] data=new String[2];
 
                     data[0] = jsonObject.optString("Scheduledtime");
@@ -163,11 +155,13 @@ public class Schedules extends AppCompatActivity {
                         .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                Intent intent=new Intent(Schedules.this,Home.class);
+                                startActivity(intent);
                             }
                         }).setCancelable(false).show();
             }
             else {
-                //Refering the List view in the Tile
+                //Referring the List view in the Tile
                 GridView visitList= (GridView) findViewById(R.id.gridschedulelist);
                 CustomAdapter adapter=new CustomAdapter(Schedules.this, R.layout.scheulegridview, ScheduleData,"ScheduleCalendar");
                 visitList.setAdapter(adapter);
@@ -178,26 +172,26 @@ public class Schedules extends AppCompatActivity {
                     gridview.smoothScrollToPosition(position);
                 }
                 else {
-                    Toast.makeText(Schedules.this, R.string.NoSchedules, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Schedules.this, R.string.NoSchedulesToday, Toast.LENGTH_SHORT).show();
                 }
+
                 calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
                     @Override
                     public void onSelectedDayChange(CalendarView calendarView, int i, int i1, int i2) {
 
                         SelectedDate.set(i, i1, i2);
                         SimpleDateFormat formatted = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+                        int position = ScheduledDates.indexOf(formatted.format(SelectedDate.getTime()));
 
-                        int position =  ScheduledDates.indexOf(formatted.format(SelectedDate.getTime()));
-                        if (position>=0) {
+
+                        if (position >= 0) {
                             gridview.smoothScrollToPosition(position);
-                        }
-                        else {
-                            Toast.makeText(Schedules.this,R.string.NoSchedules, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(Schedules.this, R.string.NoSchedules, Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 });
-
-
             }
         }
     }

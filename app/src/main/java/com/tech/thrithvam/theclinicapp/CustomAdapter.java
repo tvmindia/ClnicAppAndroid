@@ -97,7 +97,6 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                         }
                     }
                 });
-
                 break;
              /*===============================Appointment Patient List======================================*/
             case "PatientDetails":
@@ -130,7 +129,6 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                     }
                 });
                 break;
-
             //--------------------------for upload file from widget(to select punch item)------------------
             case "AddImage":
                 if (convertView == null) {
@@ -164,7 +162,6 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                         }
                     }
                 });
-
                 break;
             /*===============================Schedule Calendar List======================================*/
             case "ScheduleCalendar":
@@ -179,12 +176,10 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
-
                 holder.Time1.setText(objects.get(position)[0]);
-
                 if(!objects.get(position)[1].equals("null")){
                     cal.setTimeInMillis(Long.parseLong(objects.get(position)[1]));
-                    //int qw =cal.get(Calendar.DAY_OF_WEEK);
+
                     String strmonth=(String) android.text.format.DateFormat.format("MMM",cal.getTime()); //Jun
                     holder.month.setText(strmonth);
                     String strday=(String) android.text.format.DateFormat.format("dd",cal.getTime()); //20
@@ -195,8 +190,7 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
 
                 break;
             default:
-                break;
-        }
+                break;        }
        /* if (position % 2 == 1) {
             convertView.setBackgroundColor(Color.parseColor("#c4c3c3"));
         } else {

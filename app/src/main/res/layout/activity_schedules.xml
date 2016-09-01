@@ -9,9 +9,11 @@
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_height="300dp"
         android:layout_marginBottom="2dp"
         android:showWeekNumber="false"
+        android:minDate="@string/minDate"
+        android:maxDate="@string/maxDate"
         android:focusedMonthDateColor="@color/colorAccent"/>
     <TextView
         android:id="@+id/date_display"
