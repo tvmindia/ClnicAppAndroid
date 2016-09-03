@@ -4,15 +4,11 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v4.content.ContextCompat;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.CalendarView;
 import android.widget.GridView;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -20,14 +16,12 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,7 +44,6 @@ public class Schedules extends AppCompatActivity {
     public class Scheduleddates extends AsyncTask<Void , Void, Void> {
         int status;StringBuilder sb;
         String strJson, postData,clinicid,doctorid;
-        String str;
         JSONArray jsonArray;
         String msg;
         boolean pass=false;
@@ -182,14 +175,15 @@ public class Schedules extends AppCompatActivity {
                         SelectedDate.set(i, i1, i2);
                         SimpleDateFormat formatted = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
                         int position = ScheduledDates.indexOf(formatted.format(SelectedDate.getTime()));
-
-
                         if (position >= 0) {
                             gridview.smoothScrollToPosition(position);
-                        } else {
-                            Toast.makeText(Schedules.this, R.string.NoSchedules, Toast.LENGTH_SHORT).show();
-
                         }
+                        /*if(formatted.format(SelectedDate.getTime()) != formatted.format(calendarView.getDate()))
+                        {
+                            Toast.makeText(Schedules.this, formatted.format(SelectedDate.getTime()), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Schedules.this,"", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Schedules.this, formatted.format(calendarView.getDate()), Toast.LENGTH_SHORT).show();
+                        }*/
                     }
                 });
             }
