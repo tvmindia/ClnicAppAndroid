@@ -39,7 +39,7 @@ public class Home extends AppCompatActivity {
 
     }
     public void goRemainders(View view){
-        Intent intent=new Intent(Home.this,Remainders.class);
+        Intent intent=new Intent(Home.this,Reminders.class);
         startActivity(intent);
 
     }

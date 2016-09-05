@@ -53,6 +53,7 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
         TextView AppDate,Count;
         TextView P_Name,Apmnt_No,Allotting_Time,Mobile,Location;
         TextView Time1,day,month,dayofweek;
+        TextView r_month,r_day,r_dayofweek,r_Time;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -189,6 +190,46 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                 }
 
                 break;
+              /*===============================Schedule Calendar List======================================*/
+            case "ReminderSchedule":
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.reminderschedule, null);
+                    holder.r_month  = (TextView) convertView.findViewById(R.id.txt_reminder_month);
+                    holder.r_day=(TextView) convertView.findViewById(R.id.txt_reminder_date);
+                    holder.r_dayofweek=(TextView) convertView.findViewById(R.id.txt_reminder_week_day);
+                    holder.r_Time  = (TextView) convertView.findViewById(R.id.txt_event_time );
+                    convertView.setTag(holder);
+
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                holder.r_Time.setText(objects.get(position)[1]+'-'+objects.get(position)[2]);
+
+                if(!objects.get(position)[0].equals("null")){
+                    cal.setTimeInMillis(Long.parseLong(objects.get(position)[0]));
+
+                    String strmonth=(String) android.text.format.DateFormat.format("MMM",cal.getTime()); //Jun
+                    holder.r_month.setText(strmonth);
+                    String strday=(String) android.text.format.DateFormat.format("dd",cal.getTime()); //20
+                    holder.r_day.setText(strday);
+                    String dayOfTheWeek =(String) android.text.format.DateFormat.format("EEE",cal.getTime()); //Mon
+                    holder.r_dayofweek.setText(dayOfTheWeek);
+                }
+
+
+                convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //code here
+                    }
+                });
+
+                break;
+
+
+
+
             default:
                 break;        }
        /* if (position % 2 == 1) {

@@ -49,8 +49,8 @@
             android:configChanges="orientation|screenSize">
         </activity>
         <activity
-            android:name=".Remainders"
-            android:label="Remainders"
+            android:name=".Reminders"
+            android:label="Reminders"
             android:configChanges="orientation|screenSize">
         </activity>
         <activity
