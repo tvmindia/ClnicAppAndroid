@@ -112,19 +112,11 @@ public class Reminders extends AppCompatActivity {
                     msg=jsonObject.optString("Message", "");
                     pass = jsonObject.optBoolean("Flag", true);
                     String[] data=new String[4];
-
-
                     data[0]=jsonObject.optString("event_start").replace("/Date(", "").replace(")/", "");
                     data[1] = jsonObject.optString("Starttime");
                     data[2] = jsonObject.optString("Endtime");
                     data[3] = jsonObject.optString("Name");
-
                     ScheduleData.add(data);
-                  /*  Calendar event_start =Calendar.getInstance() ;
-                    event_start.setTimeInMillis(Long.parseLong(data[1]));
-
-                    SimpleDateFormat formatted = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
-                    ScheduledDates.add(formatted.format(event_start.getTime()));*/
                 }
             } catch (Exception ex) {
                 msg=ex.getMessage();

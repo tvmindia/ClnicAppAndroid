@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CALENDAR"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
 
     <application
         android:allowBackup="true"
@@ -45,22 +47,28 @@
 
         <activity
             android:name=".Appointments"
-            android:label="Appointment Dates"
-            android:configChanges="orientation|screenSize">
+            android:configChanges="orientation|screenSize"
+            android:label="Appointment Dates" >
         </activity>
         <activity
             android:name=".Reminders"
-            android:label="Reminders"
-            android:configChanges="orientation|screenSize">
+            android:configChanges="orientation|screenSize"
+            android:label="Reminders" >
         </activity>
         <activity
             android:name=".Schedules"
-            android:label="Schedules"
-            android:configChanges="orientation|screenSize">
+            android:configChanges="orientation|screenSize"
+            android:label="Schedules" >
         </activity>
-        <activity android:name=".PatientDetails"
-            android:label="Patients Details"
-            android:configChanges="orientation|screenSize">
+        <activity
+            android:name=".PatientDetails"
+
+            android:label="Patients Details" >
+        </activity>
+        <activity android:name=".Reminderdetails"
+            android:configChanges="orientation|screenSize"
+            android:label="Set Reminder"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
     </application>
 

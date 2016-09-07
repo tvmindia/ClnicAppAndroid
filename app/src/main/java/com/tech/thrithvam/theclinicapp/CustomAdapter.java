@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.provider.CalendarContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
     String FileName;
     String description;
     DatabaseHandler db;
+    Calendar cal= Calendar.getInstance();
     public CustomAdapter(Context context, int textViewResourceId, ArrayList<String[]> objects, String calledFrom, String fileName,String description, FileInputStream fileInputStream) {
         super(context, textViewResourceId, objects);
         adapterContext=context;
@@ -53,13 +55,13 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
         TextView AppDate,Count;
         TextView P_Name,Apmnt_No,Allotting_Time,Mobile,Location;
         TextView Time1,day,month,dayofweek;
-        TextView r_month,r_day,r_dayofweek,r_Time;
+        TextView r_month,r_day,r_dayofweek,r_Time,Clinicname;
     }
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        Holder holder;
-        SimpleDateFormat formatted = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
-        Calendar cal= Calendar.getInstance();
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        final Holder holder;
+        final SimpleDateFormat formatted = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+
 
         switch (calledFrom) {
             /*===============================Appointment List======================================*/
@@ -200,15 +202,12 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                     holder.r_dayofweek=(TextView) convertView.findViewById(R.id.txt_reminder_week_day);
                     holder.r_Time  = (TextView) convertView.findViewById(R.id.txt_event_time );
                     convertView.setTag(holder);
-
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
                 holder.r_Time.setText(objects.get(position)[1]+'-'+objects.get(position)[2]);
-
                 if(!objects.get(position)[0].equals("null")){
                     cal.setTimeInMillis(Long.parseLong(objects.get(position)[0]));
-
                     String strmonth=(String) android.text.format.DateFormat.format("MMM",cal.getTime()); //Jun
                     holder.r_month.setText(strmonth);
                     String strday=(String) android.text.format.DateFormat.format("dd",cal.getTime()); //20
@@ -216,22 +215,62 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                     String dayOfTheWeek =(String) android.text.format.DateFormat.format("EEE",cal.getTime()); //Mon
                     holder.r_dayofweek.setText(dayOfTheWeek);
                 }
-
-
                 convertView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //code here
+                        String Clinicname= objects.get(position)[3].toString();
+                        String Time= objects.get(position)[1]+'-'+objects.get(position)[2];
+                        cal.setTimeInMillis(Long.parseLong(objects.get(position)[0]));
+                        int month=Integer.parseInt((String) android.text.format.DateFormat.format("MM",cal.getTime()));
+                        int year=Integer.parseInt((String) android.text.format.DateFormat.format("yyyy", cal.getTime()));
+                        int day=Integer.parseInt((String) android.text.format.DateFormat.format("dd", cal.getTime()));
+                        int S_hour,S_min,E_hour,E_min;
+                        String format= objects.get(position)[1].substring(objects.get(position)[1].length() - 2, objects.get(position)[1].length());
+                        format.trim();
+                        if (format.equals("AM") ){
+                            String S_time[] = objects.get(position)[1].split(":");
+                            S_hour=Integer.parseInt(S_time[0]);
+                            S_min=Integer.parseInt(S_time[1].substring(0,1));
+                        }
+                        else {
+                            String S_time[] = objects.get(position)[1].split(":");
+                            S_hour=Integer.parseInt(S_time[0])+12;
+                            S_min=Integer.parseInt(S_time[1].substring(0,1));
+                        }
+
+                        String format2= objects.get(position)[1].substring(objects.get(position)[1].length() - 2, objects.get(position)[1].length());
+                        format2.trim();
+                        if (format2.equals("AM") ){
+                            String E_time[] = objects.get(position)[2].split(":");
+                            E_hour=Integer.parseInt(E_time[0]);
+                            E_min=Integer.parseInt(E_time[1].substring(0,1));
+                        }
+                        else {
+                            String E_time[] = objects.get(position)[2].split(":");
+                            E_hour=Integer.parseInt(E_time[0])+12;
+                            E_min=Integer.parseInt(E_time[1].substring(0,1));
+                        }
+
+                        Calendar beginTime = Calendar.getInstance();
+                        beginTime.set(year, month-1, day,S_hour, S_min);
+                        Calendar endTime = Calendar.getInstance();
+                        endTime.set(year, month-1, day, E_hour,E_min);
+                        Intent intent = new Intent(Intent.ACTION_INSERT)
+                                .setData(CalendarContract.Events.CONTENT_URI)
+                                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
+                                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
+                                .putExtra(CalendarContract.Events.TITLE, "Schedule Reminder")
+                                .putExtra(CalendarContract.Events.DESCRIPTION, "From"+Time)
+                                .putExtra(CalendarContract.Events.EVENT_LOCATION,Clinicname)
+                                .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
+                                .putExtra(Intent.EXTRA_EMAIL,"");
+                        adapterContext.startActivity(intent);
                     }
                 });
-
                 break;
-
-
-
-
             default:
-                break;        }
+                break;
+        }
        /* if (position % 2 == 1) {
             convertView.setBackgroundColor(Color.parseColor("#c4c3c3"));
         } else {
