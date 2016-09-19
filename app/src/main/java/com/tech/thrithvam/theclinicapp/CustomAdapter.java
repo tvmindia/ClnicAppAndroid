@@ -2,6 +2,7 @@ package com.tech.thrithvam.theclinicapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.CalendarContract;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +58,8 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
         TextView P_Name,Apmnt_No,Allotting_Time,Mobile,Location;
         TextView Time1,day,month,dayofweek;
         TextView r_month,r_day,r_dayofweek,r_Time,Clinicname;
+        ImageView noschedule;
+        TextView S_txtmonth,S_monthday,S_txtweekday,S_scheduledtimes;
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -100,6 +104,10 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                         }
                     }
                 });
+                if (position % 2 == 1) {
+                    convertView.setBackgroundColor(Color.parseColor("#c4c3c3"));
+                } else {
+                    convertView.setBackgroundColor(Color.parseColor("#e1e6ef"));}
                 break;
              /*===============================Appointment Patient List======================================*/
             case "PatientDetails":
@@ -131,6 +139,11 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                         }
                     }
                 });
+                if (position % 2 == 1) {
+                    convertView.setBackgroundColor(Color.parseColor("#c4c3c3"));
+                } else {
+                    convertView.setBackgroundColor(Color.parseColor("#e1e6ef"));}
+
                 break;
             //--------------------------for upload file from widget(to select punch item)------------------
             case "AddImage":
@@ -192,7 +205,48 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                 }
 
                 break;
-              /*===============================Schedule Calendar List======================================*/
+             /*===============================Schedule Calendar List======================================*/
+            case "ScheduleCalendar2":
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.schedulegriddate, null);
+                    holder.day=(TextView) convertView.findViewById(R.id.month_day);
+                    holder.dayofweek=(TextView) convertView.findViewById(R.id.txt_week_day);
+                    holder.noschedule=(ImageView) convertView.findViewById(R.id.no_schedule);
+
+
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                if(objects.get(position)[0].equals(""))
+                {
+
+                    holder.day.setVisibility(View.GONE);
+                    holder.dayofweek.setVisibility(View.GONE);
+                    holder.noschedule.setVisibility(View.VISIBLE);
+
+                }
+                else {
+                    holder.day.setVisibility(View.VISIBLE);
+                    holder.dayofweek.setVisibility(View.VISIBLE);
+                    holder.noschedule.setVisibility(View.GONE);
+
+               /*holder.Time1.setText(objects.get(position)[0]);*/
+                if(!objects.get(position)[1].equals("null")){
+                    cal.setTimeInMillis(Long.parseLong(objects.get(position)[1]));
+                  /*  String strmonth=(String) android.text.format.DateFormat.format("MMM",cal.getTime()); //Jun
+                   // holder.month.setText(strmonth);*/
+                    String strday=(String) android.text.format.DateFormat.format("dd",cal.getTime()); //20
+                    holder.day.setText(strday);
+                    String dayOfTheWeek =(String) android.text.format.DateFormat.format("EEE",cal.getTime()); //Mon
+                    holder.dayofweek.setText(dayOfTheWeek);
+                }
+
+
+                }
+                break;
+              /*=============================== Reminder Schedule List======================================*/
             case "ReminderSchedule":
                 if (convertView == null) {
                     holder = new Holder();
@@ -267,14 +321,15 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                         adapterContext.startActivity(intent);
                     }
                 });
+                if (position % 2 == 1) {
+                    convertView.setBackgroundColor(Color.parseColor("#92d5f7"));
+                } else {
+                    convertView.setBackgroundColor(Color.parseColor("#e1e6ef"));}
                 break;
             default:
                 break;
         }
-       /* if (position % 2 == 1) {
-            convertView.setBackgroundColor(Color.parseColor("#c4c3c3"));
-        } else {
-            convertView.setBackgroundColor(Color.parseColor("#e1e6ef"));}*/
+
         return convertView;
     }
 

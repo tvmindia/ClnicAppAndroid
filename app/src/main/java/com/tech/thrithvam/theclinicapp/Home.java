@@ -34,7 +34,7 @@ public class Home extends AppCompatActivity {
 
     }
     public void goSchedules(View view){
-        Intent intent=new Intent(Home.this,Schedules.class);
+        Intent intent=new Intent(Home.this,Schedules2.class);
         startActivity(intent);
 
     }
