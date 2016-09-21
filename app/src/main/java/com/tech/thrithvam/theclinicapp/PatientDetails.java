@@ -7,7 +7,9 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -151,7 +153,11 @@ public class PatientDetails extends AppCompatActivity {
             if (pDialog.isShowing())
                 pDialog.dismiss();
             if(!pass) {
-                new AlertDialog.Builder(PatientDetails.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
+                TextView txtvisible =(TextView) findViewById(R.id.txtnoresults);
+
+                txtvisible.setText(getResources().getString(R.string.noresults,AppointmentDate));
+                txtvisible.setVisibility(View.VISIBLE);
+                /*new AlertDialog.Builder(PatientDetails.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle("")
                         .setMessage(msg)
                         .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                             @Override
@@ -161,7 +167,7 @@ public class PatientDetails extends AppCompatActivity {
                                 intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                 startActivity(intent);
                             }
-                        }).setCancelable(false).show();
+                        }).setCancelable(false).show();*/
             }
             else {
 

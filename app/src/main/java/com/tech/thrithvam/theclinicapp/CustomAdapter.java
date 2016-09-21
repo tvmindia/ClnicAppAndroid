@@ -59,7 +59,7 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
         TextView Time1,day,month,dayofweek;
         TextView r_month,r_day,r_dayofweek,r_Time,Clinicname;
         ImageView noschedule;
-        TextView S_txtmonth,S_monthday,S_txtweekday,S_scheduledtimes;
+       /* TextView S_txtmonth,S_monthday,S_txtweekday,S_scheduledtimes;*/
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -75,13 +75,10 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                     convertView = inflater.inflate(R.layout.appointments_listview, null);
                     holder.AppDate = (TextView) convertView.findViewById(R.id.appdate);
                     holder.Count = (TextView) convertView.findViewById(R.id.Count);
-
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
-
-
                 holder.AppDate.setText(objects.get(position)[0]);
                 holder.Count.setText(objects.get(position)[1]);
 
@@ -105,7 +102,7 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                     }
                 });
                 if (position % 2 == 1) {
-                    convertView.setBackgroundColor(Color.parseColor("#c4c3c3"));
+                    convertView.setBackgroundColor(Color.parseColor("#92d5f7"));
                 } else {
                     convertView.setBackgroundColor(Color.parseColor("#e1e6ef"));}
                 break;
@@ -124,23 +121,22 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                     holder = (Holder) convertView.getTag();
                 }
                 holder.P_Name.setText(objects.get(position)[0]);
-                holder.Apmnt_No.setText(objects.get(position)[1]);
-                holder.Allotting_Time.setText(objects.get(position)[2]);
-                holder.Mobile.setText(objects.get(position)[3]);
-                holder.Location.setText(objects.get(position)[4]);
+                holder.Apmnt_No.setText("App# "+objects.get(position)[1]);
+                holder.Allotting_Time.setText("⏰ "+objects.get(position)[2]);
+                holder.Mobile.setText("☎ "+objects.get(position)[3]);
+                holder.Location.setText("\uD83C\uDFE0 "+objects.get(position)[4]);
                 convertView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(isOnline()) {
+                        if (isOnline()) {
                          /*on click codes goes here */
-                        }
-                        else {
+                        } else {
                             Toast.makeText(adapterContext, R.string.network_off_alert, Toast.LENGTH_LONG).show();
                         }
                     }
                 });
                 if (position % 2 == 1) {
-                    convertView.setBackgroundColor(Color.parseColor("#c4c3c3"));
+                    convertView.setBackgroundColor(Color.parseColor("#92d5f7"));
                 } else {
                     convertView.setBackgroundColor(Color.parseColor("#e1e6ef"));}
 
