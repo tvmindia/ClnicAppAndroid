@@ -57,9 +57,9 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
         TextView AppDate,Count;
         TextView P_Name,Apmnt_No,Allotting_Time,Mobile,Location;
         TextView Time1,day,month,dayofweek;
-        TextView r_month,r_day,r_dayofweek,r_Time,Clinicname;
+        TextView r_month,r_day,r_dayofweek,r_Time;
         ImageView noschedule;
-       /* TextView S_txtmonth,S_monthday,S_txtweekday,S_scheduledtimes;*/
+
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -195,7 +195,6 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                 holder.Time1.setText(objects.get(position)[0]);
                 if(!objects.get(position)[1].equals("null")){
                     cal.setTimeInMillis(Long.parseLong(objects.get(position)[1]));
-
                     String strmonth=(String) android.text.format.DateFormat.format("MMM",cal.getTime()); //Jun
                     holder.month.setText(strmonth);
                     String strday=(String) android.text.format.DateFormat.format("dd",cal.getTime()); //20
@@ -213,37 +212,27 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                     holder.day=(TextView) convertView.findViewById(R.id.month_day);
                     holder.dayofweek=(TextView) convertView.findViewById(R.id.txt_week_day);
                     holder.noschedule=(ImageView) convertView.findViewById(R.id.no_schedule);
-
-
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
                 }
                 if(objects.get(position)[0].equals(""))
                 {
-
                     holder.day.setVisibility(View.GONE);
                     holder.dayofweek.setVisibility(View.GONE);
                     holder.noschedule.setVisibility(View.VISIBLE);
-
                 }
                 else {
                     holder.day.setVisibility(View.VISIBLE);
                     holder.dayofweek.setVisibility(View.VISIBLE);
                     holder.noschedule.setVisibility(View.GONE);
-
-               /*holder.Time1.setText(objects.get(position)[0]);*/
-                if(!objects.get(position)[1].equals("null")){
-                    cal.setTimeInMillis(Long.parseLong(objects.get(position)[1]));
-                  /*  String strmonth=(String) android.text.format.DateFormat.format("MMM",cal.getTime()); //Jun
-                   // holder.month.setText(strmonth);*/
-                    String strday=(String) android.text.format.DateFormat.format("dd",cal.getTime()); //20
-                    holder.day.setText(strday);
-                    String dayOfTheWeek =(String) android.text.format.DateFormat.format("EEE",cal.getTime()); //Mon
-                    holder.dayofweek.setText(dayOfTheWeek);
+                    if(!objects.get(position)[1].equals("null")){
+                        cal.setTimeInMillis(Long.parseLong(objects.get(position)[1]));
+                        String strday=(String) android.text.format.DateFormat.format("dd",cal.getTime()); //20
+                        holder.day.setText(strday);
+                        String dayOfTheWeek =(String) android.text.format.DateFormat.format("EEE",cal.getTime()); //Mon
+                        holder.dayofweek.setText(dayOfTheWeek);
                 }
-
-
                 }
                 break;
               /*=============================== Reminder Schedule List======================================*/
@@ -291,7 +280,6 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                             S_hour=Integer.parseInt(S_time[0])+12;
                             S_min=Integer.parseInt(S_time[1].substring(0,1));
                         }
-
                         String format2= objects.get(position)[1].substring(objects.get(position)[1].length() - 2, objects.get(position)[1].length());
                         format2.trim();
                         if (format2.equals("AM") ){
@@ -304,7 +292,6 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                             E_hour=Integer.parseInt(E_time[0])+12;
                             E_min=Integer.parseInt(E_time[1].substring(0,1));
                         }
-
                         Calendar beginTime = Calendar.getInstance();
                         beginTime.set(year, month-1, day,S_hour, S_min);
                         Calendar endTime = Calendar.getInstance();
@@ -329,7 +316,6 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
             default:
                 break;
         }
-
         return convertView;
     }
 
