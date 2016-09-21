@@ -22,7 +22,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Choose Month"
+                android:text="@string/choosemonth"
                 android:id="@+id/ChooseMonth"
                 android:textColor="@color/colorPrimaryDark"/>
             <Spinner
@@ -45,7 +45,6 @@
                 android:numColumns="3"
                 android:verticalSpacing="5dp"
                 android:horizontalSpacing="5dp"
-
                 android:gravity="center"
                 >
             </GridView>
@@ -106,7 +105,7 @@
                         android:gravity="center_horizontal"
                         android:textColor="@android:color/black"
                         android:textSize="20dp"
-                        android:text="Scheduled Times"/>
+                        android:text="@string/ScheduledTimes"/>
                     <TextView
                         android:id="@+id/scheduledtimes"
                         android:layout_width="match_parent"

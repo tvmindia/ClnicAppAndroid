@@ -174,6 +174,10 @@ public class CustomAdapter extends ArrayAdapter<String[]> {
                         }
                     }
                 });
+                if (position % 2 == 1) {
+                    convertView.setBackgroundColor(Color.parseColor("#92d5f7"));
+                } else {
+                    convertView.setBackgroundColor(Color.parseColor("#e1e6ef"));}
                 break;
             /*===============================Schedule Calendar List======================================*/
             case "ScheduleCalendar":

@@ -28,7 +28,6 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Count"
-
             android:layout_below="@+id/appdate"
             android:layout_toLeftOf="@+id/txtpatient"
             android:paddingRight="20dp"

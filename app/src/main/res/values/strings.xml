@@ -27,6 +27,7 @@
     <string name="appointments">Appointments</string>
     <string name="remainders">Remainders</string>
     <string name="schedule">Schedules</string>
+
     <string name="search_patient">Search Patient</string>
     <string name="search">Search Here</string>
     <string name="btnadvncesearch">Advanced Search</string>
@@ -35,6 +36,8 @@
     <string name="NoSchedules">No Schedules</string>
     <string name="NoSchedulesToday"> No Schedules Today</string>
     <string name="noresults">You don\'t have any patients \nappointment\'s on %1$s</string>
+    <string name="choosemonth">Choose Month</string>
+    <string name="ScheduledTimes">Scheduled Times</string>
 
     <string name="minDate">01/01/2016</string>
     <string name="maxDate">12/31/2030</string>
